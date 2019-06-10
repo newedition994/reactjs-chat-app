@@ -10,4 +10,4 @@ class Message extends React.Component {
     }
 }
 
-export default Message
+export default Message;
