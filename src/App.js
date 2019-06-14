@@ -7,6 +7,11 @@ import NewRoomForm from './components/NewRoomForm'
 import './App.css';
 
 class App extends React.Component {
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="app">
