@@ -20,7 +20,7 @@ const DUMMY_DATA = [
 class MessageList extends Component {
     render() {
         return (
-            <div classname="message-list">
+            <div className="message-list">
                 {DUMMY_DATA.map((message, index) => {
                     return (
                         <div key={index} className="message">
