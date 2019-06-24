@@ -48,7 +48,7 @@ class App extends React.Component {
       })
       .catch(err => console.log('error on joinableRooms: ', err))
   }
-
+  // fix subscription errors when connecting to the chatkit application 
   subscribeToRoom(roomId) {
     this.currentUser.subscribeToRoom({
       roomId: roomId,
