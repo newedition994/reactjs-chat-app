@@ -15,6 +15,7 @@ class App extends React.Component {
     this.state = {
       messages: []
     }
+    this.sendMessage = this.sendMessage.bind(this)
   }
 
   componentDidMount() {
@@ -23,23 +24,36 @@ class App extends React.Component {
       userId: 'marrkymark78',
       tokenProvider: new Chatkit.TokenProvider({
         url: tokenUrl
-      })
+      }),
+      logger: {
+        verbose: console.log,
+        debug: console.log,
+        info: console.log,
+        warn: console.log,
+        error: console.log
+      }
     })
 
-    chatManager.connect()
-      .then(currentUser => {
-        currentUser.subscribeToRoom({
-          roomId: 19887298,
-          hooks: {
-            onNewMessage: message => {
-              console.log('message.text', message.text);
-              this.setState({
-                messages: [...this.state.messages, message]
-              })
-            }
+    chatManager.connect().then(currentUser => {
+      this.currentUser = currentUser
+      this.currentUser.subscribeToRoom({
+        roomId: 19887298,
+        hooks: {
+          onNewMessage: message => {
+            this.setState({
+              messages: [...this.state.messages, message]
+            })
           }
-        })
+        }
       })
+    })
+  }
+
+  sendMessage(text) {
+    this.currentUser.sendMessage({
+      text,
+      roomId: 19887298
+    })
   }
 
   render() {
@@ -48,7 +62,7 @@ class App extends React.Component {
         <RoomList />
         <MessageList messages={this.state.messages} />
         <NewRoomForm />
-        <SendMessageForm />
+        <SendMessageForm sendMessage={this.message} />
       </div>
     )
   }
